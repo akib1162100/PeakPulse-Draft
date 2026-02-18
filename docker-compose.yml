@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  peakpulse-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: peakpulse-engine
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./app:/app/app # Hot-reload during development
+    environment:
+      - LOG_LEVEL=info
+      # Transformer model for NLP Schema Recognition
+      # Options: cross-encoder/stsb-TinyBERT-L-4 (fast)
+      #          cross-encoder/stsb-distilroberta-base (balanced, default)
+      #          cross-encoder/stsb-roberta-large (most accurate)
+      - NLP_MODEL_NAME=cross-encoder/stsb-distilroberta-base
+      - ANOMALY_CONTAMINATION=0.05
+    restart: unless-stopped

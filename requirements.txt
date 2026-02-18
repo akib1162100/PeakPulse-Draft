@@ -1,0 +1,27 @@
+# Core API
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.9
+
+# Data Processing
+pandas==2.2.2
+openpyxl==3.1.5
+numpy==1.26.4
+
+# PDF & Visualization
+reportlab==4.2.2
+matplotlib==3.9.2
+
+# ML / Anomaly Detection
+scikit-learn==1.5.1
+
+# NLP – Transformer-based Schema Recognition
+# Model: all-MiniLM-L6-v2 (Microsoft MiniLM, 6-layer transformer, 22.7M params)
+# Architecture: DistilBERT-variant with multi-head self-attention
+# sentence-transformers wraps HuggingFace transformers + torch under the hood
+sentence-transformers==3.0.1
+thefuzz[speedup]==0.22.1
+
+# Testing
+pytest==8.3.2
+httpx==0.27.0

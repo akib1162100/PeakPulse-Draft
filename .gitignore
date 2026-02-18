@@ -1,0 +1,68 @@
+# ── Python ──────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.whl
+
+# ── Virtual Environment ─────────────────────────
+venv/
+.venv/
+env/
+
+# ── IDE / Editor ────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# ── OS Files ────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Docker ──────────────────────────────────────
+# Ignore nothing from Docker configs, but ignore runtime data
+docker-data/
+
+# ── Environment Variables ───────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Test / Coverage ─────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+
+# ── Data & Output ───────────────────────────────
+data/
+*.zip
+*.xlsx
+*.pdf
+!Preliminary*.xlsx
+
+# ── Logs ────────────────────────────────────────
+*.log
+logs/
+
+# ── Model Cache ─────────────────────────────────
+.cache/
+models/
+*.bin
+*.safetensors
+
+# ── Misc ────────────────────────────────────────
+*.bak
+*.tmp
+test_upload.py

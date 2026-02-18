@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+.git
+.gitignore
+*.md
+data/
+*.xlsx
+*.pdf
+brd_text.txt
+*_dump.txt
+.env
+.venv

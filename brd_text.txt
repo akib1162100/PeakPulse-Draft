@@ -1,0 +1,128 @@
+PeakPulse Engine: BRD 
+ 
+1. Project Overview 
+The objective is to automate the post-processing of traffic movement counts. The system must 
+ingest raw CSV/Excel data categorized by vehicle class (Lights, Heavy, Peds, etc.) and 
+generate structured peak-hour breakdowns, cross-tabulations, and visual Sankey-style 
+diagrams. 
+1.1 Scope 
+●​ Input: Multi-tab Excel or individual CSVs containing 15-minute interval traffic counts. 
+●​ Output: * Final Excel: Includes AM/PM Peak Breakdown, Total Volume Breakdown, and 
+Class-specific sheets. 
+○​ Final PDF: A multi-page report featuring summary tables, peak hour analysis, 
+and movement flow diagrams. 
+ 
+2. Functional Requirements 
+2.1 Data Ingestion & Normalization 
+●​ Multi-Source Merging: The system must aggregate data from disparate files (e.g., 
+Heavy.csv, Lights and Motorcycles.csv, Pedestrians.csv). 
+●​ Time-Series Alignment: Ensure all 15-minute "Start Time" bins are synchronized 
+across all vehicle classes. 
+●​ Missing Data Handling: If an interval is missing in one class but present in another, the 
+system must default to zero for that movement. 
+2.2 Analytical Engine (Logic & Calculations) 
+●​ Peak Hour Identification: * The system must calculate a rolling 60-minute volume to 
+identify the AM Peak and PM Peak (Overall Peak Hour). 
+○​ Peak Hour Factor (PHF): Calculated as $PHF = \frac{V}{4 \times V_{15}}$, 
+where $V$ is the total peak hour volume and $V_{15}$ is the volume of the 
+highest 15-minute interval within that hour. 
+●​ Categorization: * Lights and Motorcycles: Standard passenger vehicles. 
+○​ Heavy: Commercial trucks and large vehicles. 
+○​ Approach Totals: Summation of Right, Thru, Left, and U-Turns for each leg 
+(Southbound, Northbound, Westbound). 
+●​ Percentage Breakdown: Calculate % Approach (movement/total approach) and % Total 
+(movement/total intersection volume). 
+
+---PAGE BREAK---
+2.3 Visual Generation (Sankey Diagram Logic) 
+●​ Movement Mapping: Translate "Thru", "Left", and "Right" movements into vector-based 
+flow lines. 
+●​ Dynamic Scaling: The width of the flow lines in the PDF must be proportional to the 
+volume of traffic. 
+●​ Directional Orientation: Maintain standard cardinal direction mapping (Northbound at 
+bottom, Southbound at top). 
+ 
+3. Technical Specifications 
+3.1 AI/ML Implementation Plan 
+To handle variations in input formatting and automate "intelligence," the following ML 
+components are required: 
+●​ Schema Recognition (NLP): Use a transformer-based model to map user-specific 
+header names (e.g., "Peds CW" vs "Pedestrians Clockwise") to the system's internal 
+standard movements. 
+●​ Anomaly Detection: An Isolation Forest or similar algorithm to flag "unlikely" traffic 
+spikes (e.g., 500 cars in 15 minutes on a rural road) for human review before report 
+finalization. 
+●​ Automated Layout Engine: Use Computer Vision (CV) or rule-based heuristics to 
+ensure PDF tables and diagrams do not overlap or break across pages awkwardly. 
+3.2 Data Pipeline Architecture 
+Stage 
+Component 
+Technology Recommendation 
+Ingestion 
+File Watcher / API 
+Endpoint 
+Python (FastAPI/Pandas) 
+Processing 
+Calculation Engine 
+NumPy / SciPy 
+PDF Rendering 
+Layout & Graphics 
+ReportLab / Matplotlib (Sankey) 
+
+---PAGE BREAK---
+ML Layer 
+Classification/NLP 
+PyTorch / HuggingFace 
+Transformers 
+ 
+4. Output Formatting Requirements 
+4.1 Final Excel Structure 
+●​ Summary Sheet: High-level project info (Latitude/Longitude, Project Code). 
+●​ Peak Breakdown Sheets: 15-minute intervals for the identified peak hour only, including 
+% Heavy and PHF calculations. 
+●​ Total Volume: The full study duration (e.g., 06:30 AM to 06:30 PM). 
+4.2 Final PDF Structure 
+●​ Header: Project Name, Location ID, and Study Date. 
+●​ Tables: Clearly labeled movements (U, L, T, R) with "App Total" and "Int Total" columns. 
+●​ Diagrams: Visual representation of traffic flow for the Total Period, AM Peak, and PM 
+Peak. 
+ 
+5. Implementation Roadmap 
+1.​ Phase 1 (Data Logic): Develop the Python core to replicate the math found in the Final 
+Excel. 
+2.​ Phase 2 (PDF Engine): Create templates that dynamically generate tables and Sankey 
+flows. 
+3.​ Phase 3 (AI Integration): Train the NLP model on historical "Preliminary" files to 
+improve header mapping accuracy. 
+4.​ Phase 4 (UAT): Compare 100 automated reports against manually prepared ones to 
+ensure 99.9% calculation accuracy. 
+
+---PAGE BREAK---
+6. Conclusion 
+The PeakPulse Engine BRD outlines a critical initiative to modernize and automate the 
+post-processing of raw traffic movement data. The primary objective is to transition from manual 
+data aggregation and calculation to a scalable, intelligent system that produces structured, 
+high-accuracy reports. 
+ 
+The project is defined by three core pillars: 
+●​ Robust Data Processing: The system will ingest disparate CSV/Excel files, perform 
+normalization, and apply a sophisticated Analytical Engine to calculate key metrics, 
+including the Overall Peak Hour (AM/PM) and the Peak Hour Factor (PHF). 
+●​ Intelligent Automation: The inclusion of an AI/ML Implementation Plan—featuring 
+Schema Recognition (NLP), Anomaly Detection, and an Automated Layout 
+Engine—ensures the system can handle varied input formats and flag data integrity 
+issues, guaranteeing reliable results. 
+●​ Professional Output: The final deliverables are clearly defined as a Final Excel 
+workbook with detailed breakdowns and a multi-page Final PDF Report that includes 
+summary tables, peak hour analysis, and dynamically scaled Sankey-style flow 
+diagrams for clear visualization of traffic movement. 
+The proposed 4-Phase Implementation Roadmap ensures a disciplined path to completion, 
+starting with core data logic and progressing through PDF rendering and AI integration, 
+culminating in rigorous User Acceptance Testing (UAT) to achieve a target of 99.9% calculation 
+accuracy. Successful execution of this plan will result in a fully automated, highly reliable traffic 
+analysis system that significantly reduces manual effort and accelerates report generation. 
+ 
+ 
+ 
+
+---PAGE BREAK---
